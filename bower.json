@@ -1,0 +1,23 @@
+{
+  "name": "unionj",
+  "main": "unionj.js",
+  "version": "0.4.0",
+  "authors": [
+    "Nicola Orritos <nicola.orritos@gmail.com>"
+  ],
+  "description": "Unify JSON documents",
+  "keywords": [
+    "JSON",
+    "unifier",
+    "nodejs",
+    "bower"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
