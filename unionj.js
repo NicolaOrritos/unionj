@@ -1,5 +1,9 @@
 'use strict';
 
+var DEFAULT_CONF = {
+    'canNullify': false
+};
+
 /* var LOG_ENABLED = true;
 
 
@@ -45,9 +49,25 @@ function unify(a, b, conf)
 {
     var result;
     
+    conf = conf || DEFAULT_CONF;
+    
     if (!isComposite(a) || !isComposite(b))
     {
-        result = b;
+        if (isNull(b))
+        {
+            if (conf.canNullify === true)
+            {
+                result = b;
+            }
+            else
+            {
+                result = a;
+            }
+        }
+        else
+        {
+            result = b;
+        }
     }
     else
     {
@@ -60,13 +80,14 @@ function unify(a, b, conf)
                 if (isNull(b[aKey]))
                 {
                     // Leave room for a little customization:
-                    if (conf && conf.canNullify === true)
+                    if (conf.canNullify === true)
                     {
                         result[aKey] = null;
                     }
                     else
                     {
-                        // Nothing to do: leave a's property immutated
+                        // Leave a's property immutated:
+                        result[aKey] = a[aKey];
                     }
                 }
                 else

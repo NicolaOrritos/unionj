@@ -14,6 +14,16 @@ describe('unionj node module', function()
         'k1': 'v1b'
     };
     
+    var obj3 = {
+        'k1': {
+            'k1ChildKey': 'k1ChildValue'
+        }
+    };
+    
+    var obj4 = {
+        'k2': 12345
+    };
+    
     var doc1 = JSON.stringify(obj1);
     var doc2 = JSON.stringify(obj2);
     
@@ -59,5 +69,27 @@ describe('unionj node module', function()
         assert(result);
         assert(result.k1);
         assert(result.k1 === 'v1b');
+    });
+    
+    it('must unify Javascript objects with different depths', function()
+    {
+        var result = unionj.add(obj1, obj3);
+        
+        assert(result);
+        assert(result.k1);
+        assert(result.k1.k1ChildKey);
+        assert(result.k1.k1ChildKey === 'k1ChildValue');
+    });
+    
+    it('must add fields not existing in the first object', function()
+    {
+        var result = unionj.add(obj3, obj4);
+        
+        assert(result);
+        assert(result.k1);
+        assert(result.k1.k1ChildKey);
+        assert(result.k1.k1ChildKey === 'k1ChildValue');
+        assert(result.k2);
+        assert(result.k2 === 12345);
     });
 });
