@@ -15,7 +15,7 @@ $ npm install --save unionj
 ```js
 var unionj = require('unionj');
 
-unionj('Rainbow');
+var result = unionj.add(json1, json2);
 ```
 
 
