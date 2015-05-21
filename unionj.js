@@ -120,23 +120,30 @@ function unify(a, b, conf)
 
 module.exports = 
 {
-    add: function(json1, json2)
+    add: function()
     {
         var result;
         
-        if (json1 && json2)
+        var args = Array.prototype.slice.call(arguments);
+        
+        if (args.length)
         {
-            if (isString(json1))
+            if (args.length > 1)
             {
-                json1 = JSON.parse(json1);
+                // Recursion through arguments with more calls
+                var sliced = args.slice(1);
+                
+                result = unify(args[0], this.add.apply(this, sliced));
             }
-            
-            if (isString(json2))
+            else
             {
-                json2 = JSON.parse(json2);
+                if (isString(args[0]))
+                {
+                    args[0] = JSON.parse(args[0]);
+                }
+                
+                result = args[0];
             }
-            
-            result = unify(json1, json2);
         }
         
         return result;

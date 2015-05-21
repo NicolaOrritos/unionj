@@ -24,6 +24,10 @@ describe('unionj node module', function()
         'k2': 12345
     };
     
+    var obj5 = {
+        'k3': 12345
+    };
+    
     var doc1 = JSON.stringify(obj1);
     var doc2 = JSON.stringify(obj2);
     
@@ -33,7 +37,6 @@ describe('unionj node module', function()
         var result = unionj.add(obj1, obj2);
         
         assert(result);
-        assert(result.k1);
         assert(result.k1 === 'v1b');
     });
     
@@ -42,7 +45,6 @@ describe('unionj node module', function()
         var result = unionj.add(obj2, obj1);
         
         assert(result);
-        assert(result.k1);
         assert(result.k1 === 'v1a');
     });
     
@@ -51,7 +53,6 @@ describe('unionj node module', function()
         var result = unionj.add(doc1, doc2);
         
         assert(result);
-        assert(result.k1);
         assert(result.k1 === 'v1b');
     });
     
@@ -60,14 +61,12 @@ describe('unionj node module', function()
         var result = unionj.add(doc1, obj2);
         
         assert(result);
-        assert(result.k1);
         assert(result.k1 === 'v1b');
         
         
         result = unionj.add(obj1, doc2);
         
         assert(result);
-        assert(result.k1);
         assert(result.k1 === 'v1b');
     });
     
@@ -77,8 +76,14 @@ describe('unionj node module', function()
         
         assert(result);
         assert(result.k1);
-        assert(result.k1.k1ChildKey);
         assert(result.k1.k1ChildKey === 'k1ChildValue');
+        
+        
+        result = unionj.add(obj3, obj1);
+        
+        assert(result);
+        assert(result.k1);
+        assert(result.k1 === 'v1a');
     });
     
     it('must add fields not existing in the first object', function()
@@ -87,9 +92,36 @@ describe('unionj node module', function()
         
         assert(result);
         assert(result.k1);
-        assert(result.k1.k1ChildKey);
         assert(result.k1.k1ChildKey === 'k1ChildValue');
-        assert(result.k2);
+        assert(result.k2 === 12345);
+    });
+    
+    it('must add more than two objects', function()
+    {
+        var result = unionj.add(obj3, obj4, obj5);
+        
+        assert(result);
+        assert(result.k1);
+        assert(result.k1.k1ChildKey === 'k1ChildValue');
+        assert(result.k2 === 12345);
+        assert(result.k3 === 12345);
+        
+        
+        result = unionj.add(obj5, obj4, obj3, obj2);
+        
+        assert(result);
+        assert(result.k1);
+        assert(result.k1 === 'v1b');
+        assert(result.k2 === 12345);
+        assert(result.k3 === 12345);
+    });
+    
+    it('must return one object when only that object is provided', function()
+    {
+        var result = unionj.add(obj4);
+        
+        assert(result);
+        assert(result.k1 === undefined);
         assert(result.k2 === 12345);
     });
 });
