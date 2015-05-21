@@ -1,6 +1,6 @@
 {
   "name": "unionj",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "Unify JSON documents",
   "author": "Nicola Orritos <nicola.orritos@gmail.com> (nicolaorritos.github.io)",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "files": [
-    "index.js"
+    "unionj.js"
   ],
   "keywords": [
     "unionj",
