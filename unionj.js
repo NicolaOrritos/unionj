@@ -71,7 +71,14 @@ function unify(a, b, conf)
     }
     else
     {
-        result = {};
+        if (Array.isArray(a) && Array.isArray(b))
+        {
+            result = [];
+        }
+        else
+        {
+            result = {};
+        }
         
         for (var aKey in a)
         {

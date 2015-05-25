@@ -28,6 +28,29 @@ describe('unionj node module', function()
         'k3': 12345
     };
     
+    var obj6 = {
+        arr: [
+            {o1: 1},
+            {o2: 2}
+        ]
+    };
+    
+    var obj7 = {
+        arr: [
+            {o1: 1},
+            {o2: 2},
+            {o3: 3}
+        ]
+    };
+    
+    var obj8 = {
+        arr: {
+            '0': {o1: 1},
+            '1': {o2: 2},
+            '2': {o3: 4}
+        }
+    };
+    
     var doc1 = JSON.stringify(obj1);
     var doc2 = JSON.stringify(obj2);
     
@@ -123,5 +146,28 @@ describe('unionj node module', function()
         assert(result);
         assert(result.k1 === undefined);
         assert(result.k2 === 12345);
+    });
+    
+    it('must merge arrays containing objects', function()
+    {
+        var result = unionj.add(obj6, obj7);
+        
+        assert(result);
+        assert(result.arr);
+        assert(Array.isArray(result.arr));
+        assert(result.arr[0].o1 === 1);
+        assert(result.arr[1].o2 === 2);
+        assert(result.arr[2].o3 === 3);
+        
+        
+        // Override case
+        result = unionj.add(obj7, obj8);
+        
+        assert(result);
+        assert(result.arr);
+        assert( ! Array.isArray(result.arr));
+        assert(result.arr['0'].o1 === 1);
+        assert(result.arr['1'].o2 === 2);
+        assert(result.arr['2'].o3 === 4);
     });
 });
