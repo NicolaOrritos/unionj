@@ -1,10 +1,10 @@
 'use strict';
 
-var DEFAULT_CONF = {
+let DEFAULT_CONF = {
     'canNullify': false
 };
 
-/* var LOG_ENABLED = true;
+/* let LOG_ENABLED = true;
 
 
 function log()
@@ -22,35 +22,35 @@ function isString(str)
 
 function isNull(obj)
 {
-    var result = true;
-    
+    let result = true;
+
     if (obj !== undefined && obj !== null)
     {
         result = false;
     }
-    
+
     return result;
 }
 
 // Returns true if 'val' is either an array or an object
 function isComposite(val)
 {
-    var result = false;
-    
+    let result = false;
+
     if (val)
     {
         result = (val.constructor === Array || typeof val === 'object');
     }
-    
+
     return result;
 }
 
 function unify(a, b, conf)
 {
-    var result;
-    
+    let result;
+
     conf = conf || DEFAULT_CONF;
-    
+
     if (!isComposite(a) || !isComposite(b))
     {
         if (isNull(b))
@@ -79,8 +79,8 @@ function unify(a, b, conf)
         {
             result = {};
         }
-        
-        for (var aKey in a)
+
+        for (let aKey in a)
         {
             if (a.hasOwnProperty(aKey))
             {
@@ -104,7 +104,7 @@ function unify(a, b, conf)
             }
         }
 
-        for (var bKey in b)
+        for (let bKey in b)
         {
             if (b.hasOwnProperty(bKey))
             {
@@ -120,26 +120,26 @@ function unify(a, b, conf)
             }
         }
     }
-    
+
     return result;
 }
 
 
-module.exports = 
+module.exports =
 {
     add: function()
     {
-        var result;
-        
-        var args = Array.prototype.slice.call(arguments);
-        
+        let result;
+
+        let args = Array.prototype.slice.call(arguments);
+
         if (args.length)
         {
             if (args.length > 1)
             {
                 // Recursion through arguments with more calls
-                var sliced = args.slice(1);
-                
+                let sliced = args.slice(1);
+
                 result = unify(args[0], this.add.apply(this, sliced));
             }
             else
@@ -148,11 +148,11 @@ module.exports =
                 {
                     args[0] = JSON.parse(args[0]);
                 }
-                
+
                 result = args[0];
             }
         }
-        
+
         return result;
     }
 };
